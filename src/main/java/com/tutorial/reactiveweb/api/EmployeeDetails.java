@@ -3,10 +3,7 @@ package com.tutorial.reactiveweb.api;
 import com.tutorial.reactiveweb.model.Employee;
 import com.tutorial.reactiveweb.repository.EmployeeRepository;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -28,5 +25,10 @@ public class EmployeeDetails {
     @GetMapping(value="/{id}", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
     public Mono<Employee> getById(@PathVariable final Integer id){
         return employeeRepository.findById(id);
+    }
+
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Employee> updateEmployee(@RequestBody final Employee emp){
+        return employeeRepository.save(emp);
     }
 }
